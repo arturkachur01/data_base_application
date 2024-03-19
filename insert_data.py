@@ -12,12 +12,18 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def generate_random_date(start_date, end_date):
+    """
+    Generates a random date between two specified dates. Used to create realistic date entries for data records.
+    """
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days
     random_number_of_days = random.randrange(days_between_dates)
     return start_date + timedelta(days=random_number_of_days)
 
 def generate_users(n=10):
+    """
+    Populates the database with sample user data. Each user has a unique set of attributes like name, age, gender, etc.
+    """
     for _ in range(n):
         user = User(
             name=fake.name(),
@@ -31,6 +37,9 @@ def generate_users(n=10):
     session.commit()
 
 def generate_workouts(n=50):
+    """
+    Generates workout records for each user. Workouts vary by type, duration, and intensity, reflecting realistic fitness activities.
+    """
     users = session.query(User).all()
     for user in users:
         for _ in range(n):
@@ -45,6 +54,9 @@ def generate_workouts(n=50):
     session.commit()
 
 def generate_nutrition_logs(n=150):
+    """
+    Creates detailed nutrition logs for each user, tracking daily food intake, calories, and macronutrients.
+    """
     users = session.query(User).all()
     for user in users:
         for _ in range(n):
@@ -61,6 +73,9 @@ def generate_nutrition_logs(n=150):
     session.commit()
 
 def generate_sleep_records(n=100):
+    """
+    Simulates sleep data for users, recording the duration and quality of sleep, to analyze its impact on health and fitness.
+    """
     users = session.query(User).all()
     for user in users:
         for _ in range(n):
@@ -74,6 +89,9 @@ def generate_sleep_records(n=100):
     session.commit()
 
 def generate_health_metrics(n=50):
+    """
+    Generates records of various health metrics for users, such as weight, BMI, heart rate, and blood pressure, to monitor health changes over time.
+    """
     users = session.query(User).all()
     for user in users:
         for _ in range(n):
@@ -92,6 +110,7 @@ def generate_health_metrics(n=50):
     session.commit()
 
 if __name__ == '__main__':
+    # Generate sample data to populate the database, ensuring a variety of user profiles and activities for testing.
     generate_users(10)  # Generate 10 sample users
     generate_workouts(50)  # Generate 50 workouts per user
     generate_nutrition_logs(150)  # Generate 150 nutrition logs per user
