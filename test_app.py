@@ -1,7 +1,10 @@
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from create import User, Workout, Nutrition, Sleep, HealthMetrics, engine
-from query_data import get_user_workout_history, get_average_daily_calories, analyze_sleep_quality
+from query_data import (get_user_workout_history, get_average_daily_calories,
+                        analyze_sleep_quality, correlate_nutrition_and_workout,
+                        analyze_health_metric_trends)
+from recommendations import get_fitness_recommendations, get_nutrition_recommendations
 from sqlalchemy.orm import sessionmaker
 
 Session = sessionmaker(bind=engine)
@@ -45,8 +48,42 @@ class TestHealthFitnessApp(unittest.TestCase):
         new_sleep_log = Sleep(user_id=user_id, date=datetime.now(), duration=8, quality='Good')
         session.add(new_sleep_log)
         session.commit()
-        sleep_quality = analyze_sleep_quality(user_id, 1)
-        self.assertIn('Good', sleep_quality)
+        sleep_quality_summary = analyze_sleep_quality(user_id, 1)
+        self.assertIn('Good', sleep_quality_summary.keys())
+        self.assertGreaterEqual(sleep_quality_summary.get('Good', 0), 1)
+
+    def test_fitness_recommendations(self):
+        """Test generation of fitness recommendations based on user workout history."""
+        user_id = session.query(User).filter_by(name='John Doe').first().user_id
+        fitness_advice = get_fitness_recommendations(user_id)
+        self.assertIsInstance(fitness_advice, str)
+        self.assertNotEqual(fitness_advice, "")
+
+    def test_nutrition_recommendations(self):
+        """Test generation of nutrition recommendations based on user calorie intake."""
+        user_id = session.query(User).filter_by(name='John Doe').first().user_id
+        nutrition_advice = get_nutrition_recommendations(user_id)
+        self.assertIsInstance(nutrition_advice, str)
+        self.assertNotEqual(nutrition_advice, "")
+
+    def test_correlate_nutrition_and_workout(self):
+        """Test the correlation between nutrition and workout."""
+        user_id = session.query(User).filter_by(name='John Doe').first().user_id
+        correlations = correlate_nutrition_and_workout(user_id)
+        self.assertTrue(len(correlations) > 0)  # Ensure the list is not empty
+        for date_item, avg_protein, avg_duration in correlations:
+            self.assertIsInstance(date_item, date)  # Check the first item is a date
+            self.assertIsInstance(avg_protein, float)  # Check the second item is a float (avg protein intake)
+            self.assertIsInstance(avg_duration, float)  # Check the third item is a float (avg workout duration)
+
+    def test_health_metric_trends(self):
+        """Test the analysis of health metric trends."""
+        user_id = session.query(User).filter_by(name='John Doe').first().user_id
+        trends = analyze_health_metric_trends(user_id, 'weight')
+        self.assertTrue(len(trends) > 0)  # Ensure the list is not empty
+        for date_item, weight in trends:
+            self.assertIsInstance(date_item, date)  # Check the first item is a date
+            self.assertIsInstance(weight, float)  # Check the second item is a float (weight)
 
 if __name__ == '__main__':
     unittest.main()

@@ -52,10 +52,12 @@ def get_average_daily_calories(user_id, days=7):
     # Provide feedback based on calorie data availability.
     if not calories:
         print(f"No nutrition data found for user {user_id} in the last {days} days.")
+        return 0  # Return 0 if no data found
     else:
         total_calories = sum([cal.total_calories for cal in calories])
         average_calories = total_calories / len(calories)
         print(f"Average daily calories over the last {days} days: {average_calories}")
+        return average_calories  # Return the calculated average
 
 def analyze_sleep_quality(user_id, days=30):
     """
@@ -76,11 +78,19 @@ def analyze_sleep_quality(user_id, days=30):
         Sleep.date <= end_date
     ).group_by(Sleep.quality).all()
 
-    # Output sleep quality analysis.
+    # Initialize a dictionary to summarize sleep quality analysis.
+    sleep_quality_summary = {}
+
+    # Output sleep quality analysis and populate the summary dictionary.
     if not sleep_quality:
         print(f"No sleep data found for user {user_id} in the last {days} days.")
+        return {}  # Return an empty dict if no data found
     for quality in sleep_quality:
         print(f"Quality: {quality.quality}, Count: {quality.count}")
+        sleep_quality_summary[quality.quality] = quality.count
+    
+    # Return the summary dictionary.
+    return sleep_quality_summary
 
 # Below functions are examples of more advanced queries that might be added to enhance the app's functionality:
 # They demonstrate how the application could leverage complex SQL queries to provide deeper insights into the user's health and fitness data.
@@ -113,6 +123,8 @@ def correlate_nutrition_and_workout(user_id):
     # Display the correlation results
     for data in correlation_data:
         print(f"Date: {data.date}, Avg Protein Intake: {data.average_protein}g, Avg Workout Duration: {data.average_duration} mins")
+    
+    return correlation_data or []
 
 def analyze_health_metric_trends(user_id, metric='weight'):
     """
@@ -129,6 +141,8 @@ def analyze_health_metric_trends(user_id, metric='weight'):
     print(f"Trends for {metric}:")
     for data in metrics_data:
         print(f"Date: {data.date}, {metric.capitalize()}: {getattr(data, metric)}")
+    
+    return metrics_data or []
 
 if __name__ == '__main__':
     user_id = 1  # Adjust as needed based on your database data
