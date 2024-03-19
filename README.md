@@ -78,6 +78,10 @@ The meticulous capture of these diverse data points is the linchpin of the app's
 
 In essence, the Health and Fitness Tracking App's capacity to offer a personalized and comprehensive health and fitness overview hinges on its adept management of intricate data elements and their interrelations. This foundational data architecture not only propels personalized health interventions but also empowers users to navigate their health and fitness journey with informed precision.
 
+# Step 3-5
+
+See create.py, instert_data.py, query_data.py, recommendations.py, test_app.py files, where the detailed comments are added to justify and explain the data schema design, queries, data inserted, and unit tests.
+
 # Advanced Database Features and Best Practices
 
 ## Data Normalization
