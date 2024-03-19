@@ -80,7 +80,7 @@ In essence, the Health and Fitness Tracking App's capacity to offer a personaliz
 
 # Step 3-5
 
-See create.py, instert_data.py, query_data.py, recommendations.py, test_app.py files, where the detailed comments are added to justify and explain the data schema design, queries, data inserted, and unit tests.
+See create.py, instert_data.py, query_data.py, recommendations.py, test_app.py code in the bottom of README.md file, where the detailed comments are added to justify and explain the data schema design, queries, data inserted, and unit tests.
 
 # Advanced Database Features and Best Practices
 
