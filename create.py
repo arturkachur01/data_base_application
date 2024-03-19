@@ -93,9 +93,9 @@ if __name__ == '__main__':
    # This script will create the database and tables based on the defined schema when run directly.
    Base.metadata.create_all(engine)
 
-    # Design Justification:
-    # The schema is designed to provide a comprehensive and holistic view of a user's health and fitness journey.
-    # By linking detailed workout, nutrition, sleep, and health metric data to individual user profiles,
-    # the app can offer personalized recommendations and insights, thereby encouraging users to make informed
-    # decisions about their health and fitness routines. The use of relationships and foreign keys ensures data integrity
-    # and facilitates complex queries that can drive the app's core features, such as progress tracking and trend analysis.
+# Design Justification:
+# The schema is designed to provide a comprehensive and holistic view of a user's health and fitness journey.
+# By linking detailed workout, nutrition, sleep, and health metric data to individual user profiles,
+# the app can offer personalized recommendations and insights, thereby encouraging users to make informed
+# decisions about their health and fitness routines. The use of relationships and foreign keys ensures data integrity
+# and facilitates complex queries that can drive the app's core features, such as progress tracking and trend analysis.
