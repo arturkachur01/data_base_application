@@ -8,6 +8,8 @@ python3 insert_data.py
 python3 recommendations.py
 python3 query_data.py
 python3 -m unittest test_app.py
+coverage run -m unittest test_app.py
+coverage report
 ``` 
 
 # Step 1: Health and Fitness Tracking App Overview
