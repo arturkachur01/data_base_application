@@ -1,3 +1,7 @@
+# GitHub Link
+Please use the following GitHub link to see the README.md file
+without cutting any text: https://github.com/arturkachur01/data_base_application
+
 # Execution (MacOs)
 ``` 
 python3 -m venv venv
