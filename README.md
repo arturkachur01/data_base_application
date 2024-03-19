@@ -7,6 +7,7 @@ python3 create.py
 python3 insert_data.py
 python3 recommendations.py
 python3 query_data.py
+python3 -m unittest test_app.py
 ``` 
 
 # Step 1: Health and Fitness Tracking App Overview
